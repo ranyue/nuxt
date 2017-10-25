@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border: 0;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table td {
+  padding: 0;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clearfix:after {
+  display: block;
+  content: ".";
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+body {
+  position: relative;
+  font-size: 0.14rem;
+  background-color: #fff;
+  font-family: 'PingFangSC-Regular';
+  color: #333;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+button:visited {
+  border: none;
+  outline: none;
+}
+
+img {
+  border: none;
+}
+
+input,
+input:active,
+input:focus {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #E5E5E5;
+  border-radius: 0;
+}
+
+textarea {
+  border: none;
+  -webkit-appearence: none
+}
+
+@import 'common/sass-functions';
+.arrow {
+  position: absolute;
+  top: calc(50% - 0.06rem);
+  right: 0;
+  @include setSize(12px, 12px);
+  background: url('../assets/arrow.png') no-repeat 0 0;
+  background-size: contain;
+}
+
+.black-arrow {
+  background-image: url('../assets/black-arrow.png');
+}
+
+.green-arrow {
+  background-image: url('../assets/green-arrow.png');
+}
+
+.appoint-evaluation-base {
+  display: inline-block;
+  background: url('../assets/appoint-evaluation/icons.svg') no-repeat center center;
+  background-size: cover;
+}
+
+.bg-base {
+  background: url("../assets/bgs.svg") no-repeat center center;
+  background-size: cover;
+}
+
+.page-title {
+  background: #4fddc8;
+  width: 100%;
+  @include setHeight(54px);
+  text-indent: pxToRem(17px);
+  font-size: pxToRem(20px);
+  color: #ffffff;
+}
+
+.single-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auto-appoint-base {
+  display: inline-block;
+  background: url("../assets/auto-appoint.svg") no-repeat center center;
+  background-size: cover;
+}
+
+.base-arrow {
+  display: inline-block;
+  width: 14px;
+  height: 28px;
+  background: url("../assets/arrow.svg") no-repeat center center;
+  background-size: cover;
+}
+
+.right-green-arrow {
+  background-position: 0 -18px;
+}
+
+.right-gray-arrow {
+  background-position: 0 6px;
+}
+
+.radio {
+  @include setSize(16px,
+  16px);
+  border-radius: 100%;
+  display: inline-block;
+  border: 1px solid #c5c8d0;
+  @include displayFlex(center,
+  center);
+  span {
+    @include setSize(12px,
+    12px);
+    border-radius: 100%;
+    display: none;
+    background-color: $baseColor;
+  }
+  &.active {
+    border-color: $baseColor;
+    span {
+      display: inline-block;
+    }
+  }
+}
+
+.mint-msgbox-wrapper .mint-msgbox-confirm {
+  color: $baseColor;
+}

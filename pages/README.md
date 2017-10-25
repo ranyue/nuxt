@@ -5,3 +5,10 @@ The framework reads all the .vue files inside this directory and create the rout
 
 More information about the usage of this directory in the documentation:
 https://nuxtjs.org/guide/routing
+
+账户卡券相关 
+个人绑定信息相关
+个人就诊记录相关
+预约功能相关
+诊所信息相关
+活动相关

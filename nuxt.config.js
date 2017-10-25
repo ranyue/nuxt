@@ -36,10 +36,34 @@ module.exports = {
     },
     vendor: [
       'axios',
-      'element-ui',
       'js-cookie',
-      'mint-ui',
-      'normalize.css'
+      'element-ui',
+      'mint-ui'
+    ],
+    cache: true,
+    css: [
+      { src: '~assets/css/sass-functions.scss', lang: 'scss' },
+      { src: '~assets/css/common.scss', lang: 'scss' },
+      'element-ui/lib/theme-default/index.css',
+      'mint-ui/lib/style.css',
+      'normalize/normalize.css'
+    ],
+    router: {
+      scrollBehavior: function (to, from, savedPosition) {
+        return { x: 0, y: 0 }
+      }
+    },
+    plugins: [
+      { src: '~plugins/element-ui', ssr: false },
+      { src: '~plugins/mint-ui', ssr: false }
     ]
+    // render: {
+    //   bundleRenderer: {
+    //     shouldPreload: (file, type) => {
+    //       return ['script', 'style', 'font'].includes(type)
+    //     }
+    //   }
+    // }
+
   }
 }

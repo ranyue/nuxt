@@ -1,0 +1,163 @@
+@import 'variables';
+
+$baseFontSize: 100px !default;
+$baseFontSize2x: 200px !default;
+@function pxToRem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+@function pxToRem2x($px) {
+  @return $px / $baseFontSize2x * 1rem;
+}
+
+@function onlyPxToRem($num) {
+  @if type_of($num) == 'string' {
+    @return $num
+  } @else if unit($num) == 'px' {
+    @return pxToRem($num)
+  } @else {
+    @return $num
+  }
+}
+
+@mixin setSize($width, $height) {
+  width: onlyPxToRem($width);
+  height: onlyPxToRem($height);
+}
+
+@mixin textCenter($width, $height) {
+  width: onlyPxToRem($width);
+  height: onlyPxToRem($height);
+  line-height: onlyPxToRem($height);
+  text-align: center;
+}
+
+@mixin setHeight($height) {
+  height: onlyPxToRem($height);
+  line-height: onlyPxToRem($height);
+}
+
+@mixin setFontPos($lineHeight, $align: left, $size: 14px) {
+  line-height: onlyPxToRem($lineHeight);
+  text-align: $align;
+  font-size: onlyPxToRem($size)
+}
+
+@mixin setEllipsis($width) {
+  width: onlyPxToRem($width);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin setTextEllipsis($maxLine) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $maxLine;
+  overflow: hidden;
+}
+
+@mixin fullScreenMask {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(14, 14, 14, 0.60);
+  z-index: 300;
+}
+
+@mixin setFullLineFont($fontSize: 14px) {
+  // System default is 1.15.
+  line-height: 0.3;
+  text-align: justify;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+/**
+ * Note: for nested flex: center, center elements in iOS. Add flex: 1, text-align: center to the child element.
+ *
+ * Example: @include displayFlex(center)
+ * Example: @include displayFlex(flex-start center)
+ * Example: @include displayFlex(flex-start center stretch)
+ * Example: @include displayFlex(column flex-start stretch)
+ */
+@mixin displayFlex($position: flex-start, $old...) {
+  display: flex;
+
+  // TODO: refactor
+  $position: join($position, $old);
+
+  $argsLength: length($position);
+  $argsFirst: nth($position, 1);
+  $argsNum: if($argsFirst == column, $argsLength - 1, $argsLength);
+
+  @if $argsFirst == column {
+    flex-direction: column;
+  }
+
+  @if $argsNum == 1 {
+    $position: nth($position, $argsLength - $argsNum + 1);
+    justify-content: $position;
+    align-items: $position;
+  } @else if $argsNum == 2 {
+    justify-content: nth($position, $argsLength - $argsNum + 1);
+    align-items: nth($position, $argsLength - $argsNum + 2);
+  } @else if $argsNum == 3 {
+    justify-content: nth($position, $argsLength - $argsNum + 1);
+    align-items: nth($position, $argsLength - $argsNum + 2);
+    align-content: nth($position, $argsLength - $argsNum + 3);
+  }
+}
+
+@mixin element($name) {
+  @at-root #{&}__#{$name} {
+    @content;
+  }
+}
+
+@mixin modifier($name) {
+  @at-root &#{&}_#{$name} {
+    @content;
+  }
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animateIn($name, $duration: .3s) {
+  $frameName: #{$name}-in;
+
+  .#{$name}-enter-active {
+    animation: $frameName $duration;
+  }
+
+  @include keyframes($frameName) {
+    @content
+  }
+}
+
+@mixin animateOut($name, $duration: .3s) {
+  $frameName: #{$name}-out;
+
+  .#{$name}-leave-active {
+    animation: $frameName .3s;
+  }
+
+  @include keyframes($frameName) {
+    @content
+  }
+}
